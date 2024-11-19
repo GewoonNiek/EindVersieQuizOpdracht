@@ -13,6 +13,7 @@ namespace QuizOpdracht
         MenuHelper menuHelper = new MenuHelper();
         public AdminFunctions() { }
 
+        // Check what the admin wants to do
         public void checkAdminChoice(string choice)
         {
             if (choice.Length != 1 || !choice.All(char.IsDigit))
@@ -42,6 +43,7 @@ namespace QuizOpdracht
             }
         }
 
+        // Function to delete a quiz
         public void manageQuizzes()
         {
             Console.Clear();
@@ -68,6 +70,7 @@ namespace QuizOpdracht
             Console.Write("Enter the number of the quiz to delete: ");
             string input = Console.ReadLine();
 
+            // Check if choice is valid
             if (int.TryParse(input, out int choice) && choice >= 1 && choice <= quizzes.Count)
             {
                 Quiz selectedQuiz = quizzes[choice - 1];
@@ -93,6 +96,7 @@ namespace QuizOpdracht
             Console.Write("How many questions do you wish to create? ");
             string amtOfQuestionsInput = Console.ReadLine();
 
+            // Check if amount of questions an admin want to create is correct
             if (!int.TryParse(amtOfQuestionsInput, out int amtOfQuestions) || amtOfQuestions <= 0)
             {
                 Console.WriteLine("Invalid number of questions. Please try again.");
@@ -127,6 +131,7 @@ namespace QuizOpdracht
 
                 if (int.TryParse(amtOfAnswersInput, out int amtOfAnswers) && amtOfAnswers > 0)
                 {
+                    // Put a tuple with questionID and amount of questions in a list so it can be used later
                     Tuple<int, string> result = db.createQuestion(quizId, questionText, amtOfAnswersInput);
                     questions.Add(result);
                 }

@@ -11,6 +11,7 @@ namespace QuizOpdracht
     {
         MenuHelper menuHelper = new MenuHelper();
 
+        // Check what user wants to do
         public void checkUserChoice(string choice)
         {
             if (choice.Length > 1 || choice.Length < 1)
@@ -54,6 +55,7 @@ namespace QuizOpdracht
             Console.WriteLine();
 
 
+            // Get all questions and answers and shuffle the questions so its a random way to play the quiz
             List<Question> questionList = shuffleQuestions(questionDB.getQuestionsByQuiz(quiz.quizID));
             List<Tuple<int, Answer>> answerList = answerDB.getAnswerByQuestion(questionList);
 
@@ -101,17 +103,18 @@ namespace QuizOpdracht
                 Console.Write("Enter your choice (1 - " + numOptions + "): ");
                 string input = Console.ReadLine();
 
+                // Check if the choice the player made is correct
                 if (int.TryParse(input, out choice) && choice >= 1 && choice <= numOptions)
                 {
                     return choice;
                 }
-
                 Console.WriteLine("Invalid input. Please try again.");
             }
         }
 
         public List<Question> shuffleQuestions(List<Question> questions)
         {
+            // Shuffle the questions
             Random random = new Random();
             for (int i = 0; i < questions.Count; i++)
             {
